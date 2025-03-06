@@ -16,10 +16,10 @@ const userSchema = mongoose.Schema({
     },
     order: [{
         type: mongoose.Types.ObjectId,
-        ref: "order"
+        ref: "Order"
     }
     ]
 })
 
 
-module.exports =  mongoose.model("user" , userSchema);
+module.exports =  mongoose.model("User" , userSchema);

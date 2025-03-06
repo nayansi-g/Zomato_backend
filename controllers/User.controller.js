@@ -24,7 +24,7 @@ const SignUp = async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(404).json({ error: error, message: "something went wrong", })
+        res.status(500).json({ error: error, message: "something went wrong", })
     }
 }
 
@@ -35,7 +35,7 @@ const LogIn = async (req, res) => {
         const validUser = await User.findOne({ email: email }).populate()
 
         if (!validUser) {
-            res.status(404).json({ message: " Please signUp First" })
+            res.status(404).json({ message: "User not found, please sign up." })
 
         } else {
             const authUser = bcrypt.compareSync(password, validUser.password)
@@ -44,7 +44,7 @@ const LogIn = async (req, res) => {
                 res.status(200).json({token:token , id: validUser._id})
 
             } else {
-                res.status(404).json({ message: "incorrect password" })
+                res.status(401).json({ message: "incorrect password" })
 
             }
         }

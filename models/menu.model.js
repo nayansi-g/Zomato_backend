@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const menuSchema = new mongoose.Schema(
     {
-        resturant: {
+        restaurant: {  // Fixed spelling from resturant → restaurant
             type: mongoose.Schema.Types.ObjectId,
-            ref: "resturant", 
+            ref: "Restaurant", // Fixed reference to match the correct model
             required: true,
         },
         itemName: {
@@ -12,8 +12,7 @@ const menuSchema = new mongoose.Schema(
             required: true, // Name of the menu item
         },
         description: {
-            type: String,
-            required: true,
+            type: String, // Made optional (not all items may have a description)
         },
         price: {
             type: Number,
@@ -24,15 +23,19 @@ const menuSchema = new mongoose.Schema(
             enum: ["Appetizer", "Main Course", "Dessert", "Beverage", "Snack", "Others"],
             required: true,
         },
-        image: {
-            type: String, // URL of the menu item image
-        },
+        images: [{  // Changed from `image` to an array `images`
+            type: String, // URLs of menu item images
+        }],
         availability: {
             type: Boolean,
             default: true, // Whether the menu item is available
         },
+        isVeg: {  // Added vegetarian flag (optional)
+            type: Boolean,
+            default: false,
+        }
     },
     { timestamps: true }
 );
 
-module.exports = mongoose.model("menu", menuSchema);
+module.exports = mongoose.model("Menu", menuSchema); // Changed to uppercase "Menu"
